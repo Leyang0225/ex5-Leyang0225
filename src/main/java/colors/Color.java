@@ -5,7 +5,7 @@ import java.util.List;
 public class Color {
 
     /**
-     * First constructor for color
+     * First constructor for color.
      * @param color of the form '#uvwxyz'
      */
     public Color(String color){
