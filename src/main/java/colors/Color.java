@@ -6,7 +6,7 @@ public class Color {
 
     /**
      * First constructor for color.
-     * @param color of the form '#uvwxyz'
+     * @param color of the form '#uvwxyz.'
      */
     public Color(String color){
         // TODO: Implement this
