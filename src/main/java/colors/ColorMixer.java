@@ -13,8 +13,58 @@ public class ColorMixer {
      * @throws CannotCombineColorsException if the colors cannot be combined
      */
     public Color combine(List<Color> colors) throws CannotCombineColorsException {
-        // TODO: Implement this
-        return null;
+
+        if(colors.size() == 0) throw new CannotCombineColorsException("No colors in the list");
+
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+
+        for(Color c : colors){
+            red = red + c.red;
+            blue = blue + c.blue;
+            green = green + c.green;
+        }
+
+        int n = colors.size();
+        if(red % n != 0 || blue % n != 0 || green % n != 0){
+            throw new CannotCombineColorsException("Colors can not be combined");
+        }
+        else{
+            return new Color(red / n, green / n, blue / n);
+        }
+    }
+
+    private boolean check(List<Color> colors, boolean[] choose, Color target, int n, int chooseNum){
+        if(chooseNum == 0) return false;
+
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+
+        for(int i = 0; i < n; i++){
+            if(choose[i] == true){
+                red += colors.get(i).red;
+                blue += colors.get(i).blue;
+                green += colors.get(i).green;
+            }
+        }
+
+        if(red % chooseNum != 0 || blue % chooseNum != 0 || green % chooseNum != 0) return false;
+        if(new Color(red / chooseNum, green / chooseNum, blue / chooseNum).equals(target)) return true;
+        else return false;
+    }
+
+    private boolean dfs(int now, int n, List<Color> colors, int chooseNum, boolean[] choose, Color target){
+        if(now == n){
+            if(check(colors, choose, target, n, chooseNum) == true) return true;
+            else return false;
+        }
+        choose[now] = true;
+        if(dfs(now + 1, n, colors, chooseNum + 1, choose, target) == true) return true;
+        choose[now] = false;
+        if(dfs(now + 1, n, colors, chooseNum, choose, target) == true) return true;
+        else return false;
     }
 
     /**
@@ -25,7 +75,7 @@ public class ColorMixer {
      * @return True if there is some combination of colors that can be combined to get target. False otherwise.
      */
     public boolean createColor(List<Color> colors, Color target){
-        // TODO: Implement this
-        return false;
+        if(dfs(0, colors.size(), colors, 0, new boolean[colors.size()], target) == true) return true;
+        else return false;
     }
 }
