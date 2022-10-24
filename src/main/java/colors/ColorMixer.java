@@ -10,7 +10,7 @@ public class ColorMixer {
      * the number of colors being combined.
      * @param colors A list of color objects.
      * @return The result of the color combination as a Color object
-     * @throws CannotCombineColorsException if the colors cannot be combined
+     * @throws CannotCombineColorsException if the colors cannot be combined.
      */
     public Color combine(List<Color> colors) throws CannotCombineColorsException {
 
